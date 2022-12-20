@@ -1,0 +1,23 @@
+Description: fix a POD error
+Origin: vendor
+Forwarded: no
+Author: gregor herrmann <gregoa@debian.org>
+Last-Update: 2010-07-31
+
+--- a/Map.pm
++++ b/Map.pm
+@@ -1109,12 +1109,12 @@
+ 
+ =head1 WARNINGS
+ 
+-=over 4
+-
+ You can demand Unicode::Map to issue warnings at deprecated or incompatible 
+ usage with the constants WARN_DEFAULT, WARN_DEPRECATION or WARN_COMPATIBILITY.
+ The latter both can be ored together.
+ 
++=over 4
++
+ =item No special warnings:
+ 
+ $Unicode::Map::WARNINGS = Unicode::Map::WARN_DEFAULT

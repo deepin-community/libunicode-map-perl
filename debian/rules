@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+## uncomment this to turn on verbose mode
+#export DH_VERBOSE=1
+
+TMP = $(CURDIR)/debian/libunicode-map-perl
+
+b% c% i%:
+	dh $@
+
+override_dh_auto_configure: fix-big5
+	dh_auto_configure
+
+override_dh_clean:
+	[ ! -f fix-big5-stamp ] || mv debian/BIG5.map.dist Map/EASTASIA/BIG5.map
+	dh_clean
+
+override_dh_auto_install:
+	dh_auto_install
+	# Neither install scripts nor their man-pages
+	$(RM) -rvf $(TMP)/usr/bin $(TMP)/usr/share/man/man1
+
+override_dh_compress:
+	dh_compress -Xmkmapfile
+
+# fix the BIG5 map on the fly
+fix-big5: fix-big5-stamp
+fix-big5-stamp:
+	dh_testdir
+	sh debian/fix-big5 > debian/BIG5.map.new
+	mv Map/EASTASIA/BIG5.map debian/BIG5.map.dist
+	mv debian/BIG5.map.new Map/EASTASIA/BIG5.map
+	touch fix-big5-stamp

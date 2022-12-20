@@ -1,0 +1,25 @@
+This package was debianized by Ardo van Rangelrooij <ardo@debian.org>
+on Fri, Aug 31, 2001, 23:40:41 -0500.
+
+It was downloaded from the Comprehensive Perl Archive Network (CPAN).
+Visit <http://www.cpan.org/> to find a CPAN site near you.
+
+Upstream Author: Martin Schwartz <martin@nacho.de>
+
+Copyright:
+
+Copyright (C) 1998, 1999, 2000 Martin Schwartz. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of either:
+
+a) the GNU General Public License as published by the Free Software
+   Foundation; either version 1, or (at your option) any later
+   version, or
+
+b) the "Artistic License" which comes with Perl.
+
+On a Debian system the complete text of the GNU General Public License
+version 1 can be found in the file `/usr/share/common-licenses/GPL-1'
+and the complete text of the the Artistic Licence can be found in the
+file `/usr/share/common-licenses/Artistic'.

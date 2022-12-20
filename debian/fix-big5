@@ -1,0 +1,33 @@
+#!/bin/sh
+# Insert the US-ASCII compatible characters into the BIG5 binary map,
+# since the original source file (currently  
+#  ftp://ftp.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/OTHER/BIG5.TXT
+# ) doesn't include them. Note that this depends on the binary map format.
+# Hopefully by the time it is changed, this problem has been fixed upstream.
+#
+# See http://bugs.debian.org/320406
+#
+# Copyright Niko Tyni <ntyni@iki.fi> 2005
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of either:
+# 
+# a) the GNU General Public License as published by the Free Software
+#    Foundation; either version 1, or (at your option) any later
+#    version, or
+# 
+# b) the "Artistic License" which comes with Perl.
+
+set -e
+
+IN=Map/EASTASIA/BIG5.map
+DD=/bin/dd
+PF=/usr/bin/printf
+
+$DD if=$IN bs=1 count=12 # header, 12 bytes
+$PF "\x0\x8\x0"          # partial key-value mappings
+$PF "\x8\x1\x10\x1"      # input 1 char of 8-bits at a time, output 1 char of 16 bits
+$PF "\x80\x0\x80\x0\x0"  # 128 characters starting at 0x00 -> 128 chars starting at 0x0000
+$PF "\x0\x0\x0"          # end of submap
+$DD if=$IN bs=1 skip=12  # rest of the file
+

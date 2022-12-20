@@ -1,0 +1,45 @@
+Author: Niko Tyni <ntyni@iki.fi>
+Description: Test the fixed BIG5 map in t/map.t.
+Bug: #320406
+
+--- a/t/map.t
++++ b/t/map.t
+@@ -6,7 +6,7 @@
+ # Change 1..1 below to 1..last_test_to_print .
+ # (It may become useful if the test is moved to ./t subdirectory.)
+ 
+-BEGIN { $| = 1; print "1..5\n"; }
++BEGIN { $| = 1; print "1..6\n"; }
+ END {print "not ok 1\n" unless $loaded;}
+ use Unicode::Map;
+ $loaded = 1;
+@@ -27,6 +27,7 @@ my @test = ( 
+    ["GB2312",         "n->m: GB2312 (GB2312-80^8080 + ISO8859-1)"],
+    ["DEVANAGA",       "n->m: DEVANAGA"],
+    ["EUC_JP",         "n->m: EUC-JP"],
++   ["BIG5",           "n->m: BIG5"],
+ );
+ 
+ {
+@@ -133,6 +134,21 @@ sub DEVANAGA {
+    return testMapping ( "APPLE-DEVANAGA", $_locale, $_unicode );
+ }
+ 
++sub BIG5 {
++   my $_locale  =
++      "\xA5\x40"
++      ."\xA5\x41"
++      ."\x30"
++      ."  "
++   ;
++   my $_unicode =
++      "\x4E\x16"
++      ."\x4E\x15"
++      ."\x00\x30\x00\x20\x00\x20"
++   ;
++   return testMapping ( "BIG5", $_locale, $_unicode );
++}
++
+ sub testMapping {
+     my ( $charsetId, $txtLocale, $txtUnicode ) = @_;
+     return 0 if ! ( my $Map = new Unicode::Map($charsetId) );
